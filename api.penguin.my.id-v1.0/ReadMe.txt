@@ -1,0 +1,1 @@
+User --> Apigee --> Cloud Function --> Cloud Run --> LangServe --> LangChain --> Google Gemini API --> RAG --> Database/Storage
