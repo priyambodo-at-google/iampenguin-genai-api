@@ -7,6 +7,7 @@ git push
 
 export GCP_REGION='us-central1'
 export GCP_PROJECT='iam-penguin'
+export PROJECT_ID='iam-penguin'
 export AR_REPO='penguinmyid-artifactregistry'
 export SERVICE_NAME='apipenguinmyid'
 
@@ -28,12 +29,13 @@ gcloud builds submit --tag "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$AR_REPO/$SE
 
 gcloud run deploy "$SERVICE_NAME" \
    --image="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$AR_REPO/$SERVICE_NAME" \
-   --port=8080 \
    --allow-unauthenticated \
    --region=$GCP_REGION \
    --platform=managed  \
    --project=$GCP_PROJECT \
-   --set-env-vars=GCP_PROJECT=$GCP_PROJECT,GCP_REGION=$GCP_REGION
+   --set-env-vars=GCP_PROJECT=$GCP_PROJECT,GCP_REGION=$GCP_REGION,PROJECT_ID=$(gcloud config get-value project)
 
 #Result: 
-#https://iamgemini-priyambodo-com-rzmyhdhywa-uc.a.run.app
+#https://apipenguinmyid-tzgqcnawaa-uc.a.run.app
+#Add the /docs behind the URL (e.g. https://apipenguinmyid-tzgqcnawaa-uc.a.run.app/docs/)
+#We can go the Playground by adding the API path and the /playground (e.g. https://apipenguinmyid-tzgqcnawaa-uc.a.run.app/joke/playground)
