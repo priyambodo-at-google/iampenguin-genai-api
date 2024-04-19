@@ -8,7 +8,7 @@ git push
 export GCP_REGION='us-central1'
 export GCP_PROJECT='iam-penguin'
 export AR_REPO='penguinmyid-artifactregistry'
-export SERVICE_NAME='api.penguin.my.id'
+export SERVICE_NAME='apipenguinmyid'
 
 pip install --upgrade pip
 python3 -m venv .venv
@@ -19,16 +19,11 @@ pip install --upgrade pip
 #/bin/bash
 #gcloud init
 #gcloud auth login
-#gcloud config set project work-mylab-machinelearning
+#gcloud config set project iam-penguin
 #gcloud components update
 
-export GCP_REGION='us-central1'
-export GCP_PROJECT='work-mylab-machinelearning'
-export AR_REPO='iamgemini-priyambodocom-artifactregistry'  
-export SERVICE_NAME='iamgemini-priyambodo-com' 
-
-#gcloud artifacts repositories create "$AR_REPO" --location="$GCP_REGION" --repository-format=Docker
 gcloud auth configure-docker "$GCP_REGION-docker.pkg.dev"
+gcloud artifacts repositories create "$AR_REPO" --location="$GCP_REGION" --repository-format=Docker
 gcloud builds submit --tag "$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$AR_REPO/$SERVICE_NAME"
 
 gcloud run deploy "$SERVICE_NAME" \
